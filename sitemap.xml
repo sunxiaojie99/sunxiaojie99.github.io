@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sunxiaojie99.github.io/2020/04/21/pytorch/</loc>
+    
+    <lastmod>2020-04-26T11:25:44.112Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sunxiaojie99.github.io/2020/04/21/pytorch_help/</loc>
+    
+    <lastmod>2020-04-26T11:19:50.670Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sunxiaojie99.github.io/2020/04/20/cloud-compute/</loc>
+    
+    <lastmod>2020-04-20T07:47:38.427Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sunxiaojie99.github.io/2020/04/13/About%20Me/</loc>
     
     <lastmod>2020-04-20T07:42:32.071Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>https://sunxiaojie99.github.io/2020/04/18/world/</loc>
     
     <lastmod>2020-04-20T07:42:24.499Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://sunxiaojie99.github.io/2020/04/16/cloud-compute/</loc>
-    
-    <lastmod>2020-04-20T07:42:13.677Z</lastmod>
     
   </url>
   
