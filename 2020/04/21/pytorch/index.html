@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://sunxiaojie99.github.io">
-  <title>A View of Cloud Computing | Clean</title>
+  <title>Pytorch 及其应用 | Clean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="pytorch及其应用#优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量； 针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升； 因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。  环境配置# 有关conda虚拟环境123">
+  <meta name="description" content="pytorch及其应用优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；  针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；  因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A View of Cloud Computing">
+<meta property="og:title" content="Pytorch 及其应用">
 <meta property="og:url" content="https://sunxiaojie99.github.io/2020/04/21/pytorch/index.html">
 <meta property="og:site_name" content="Clean">
-<meta property="og:description" content="pytorch及其应用#优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量； 针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升； 因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。  环境配置# 有关conda虚拟环境123">
+<meta property="og:description" content="pytorch及其应用优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；  针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；  因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-21T14:03:52.000Z">
-<meta property="article:modified_time" content="2020-04-26T11:25:44.112Z">
+<meta property="article:modified_time" content="2020-05-15T02:54:32.350Z">
 <meta property="article:author" content="Carol Sun">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      A View of Cloud Computing
+      Pytorch 及其应用
     </h1>
   
 
@@ -174,9 +174,13 @@
 </ol>
 <p><strong>缺点</strong>：</p>
 <ol>
-<li>对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；</li>
-<li>针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；</li>
-<li>因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。</li>
+<li><p>对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；</p>
+</li>
+<li><p>针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；</p>
+</li>
+<li><p>因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。</p>
+<a id="more"></a>
+</li>
 </ol>
 <h2><span id="huan-jing-pei-zhi">环境配置</span><a href="#huan-jing-pei-zhi" class="header-anchor">#</a></h2><ol>
 <li>有关conda虚拟环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conda list # 查看安装了哪些包</span><br><span class="line">conda env list # 查看当前存在哪些虚拟环境</span><br><span class="line">conda update conda # 检查更新当前conda</span><br><span class="line">python --version # 查看python版本</span><br><span class="line">conda create -n xxx python&#x3D;3.6 # xxx为自己命名的虚拟环境名称，该文件可在Anaconda安装目录 envs文件下找到</span><br><span class="line">conda create -n pytorch python&#x3D;3.6</span><br><span class="line">conda activate yorr_env_name # 激活虚拟环境</span><br><span class="line">conda install -n your_env_name [package] # 对虚拟环境安装额外的包</span><br><span class="line">deactivate # 关闭虚拟环境</span><br><span class="line">conda remove -n your_env_name --all</span><br><span class="line">conda remove --name your_env_name package_name # 删除环境中的某个包</span><br></pre></td></tr></table></figure></li>
@@ -236,6 +240,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/04/30/3D%20Point%20Clouds/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Point cloud learning
+        
+      </div>
+    </a>
   
   
     <a href="/2020/04/21/pytorch_help/" id="article-nav-older" class="article-nav-link-wrap">
