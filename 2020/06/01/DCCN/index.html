@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="https://sunxiaojie99.github.io">
   <title>Densely Connected Convolutional Networks | Clean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Densely Connected Convolutional Networks#时间：2018-6 摘要：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L">
+  <meta name="description" content="Densely Connected Convolutional Networks时间：2018-6 摘要：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Densely Connected Convolutional Networks">
 <meta property="og:url" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/index.html">
 <meta property="og:site_name" content="Clean">
-<meta property="og:description" content="Densely Connected Convolutional Networks#时间：2018-6 摘要：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L">
+<meta property="og:description" content="Densely Connected Convolutional Networks时间：2018-6 摘要：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L+">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/1.png">
 <meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/1.png">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/3.png">
 <meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/4.png">
 <meta property="article:published_time" content="2020-06-01T03:28:52.000Z">
-<meta property="article:modified_time" content="2020-06-07T04:08:21.066Z">
+<meta property="article:modified_time" content="2020-06-07T04:11:45.115Z">
 <meta property="article:author" content="Carol Sun">
 <meta property="article:tag" content="paper">
 <meta name="twitter:card" content="summary">
@@ -180,6 +180,7 @@
 <li>鼓励特征重用</li>
 <li>大大减少了参数量</li>
 </ol>
+<a id="more"></a>
 <p>源码：<a href="https://www.cnblogs.com/yjphhw/p/10034265.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjphhw/p/10034265.html</a></p>
 <p><a href="https://gitee.com/sxjhello/vision/blob/master/torchvision/models/densenet.py" target="_blank" rel="noopener">https://gitee.com/sxjhello/vision/blob/master/torchvision/models/densenet.py</a></p>
 <h2><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h2><p>各种CNN已经成为了视觉对象识别的主流机器学习方法。虽然它们最初是在20多年前引入，但直到最近才得到更近一步的发展。最初的LeNet5 包含5层，VGG 有19 层，直到 Highway Networks 和  Residual Networks（ResNets）的出现，才达到了100层之上。</p>

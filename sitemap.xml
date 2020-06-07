@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sunxiaojie99.github.io/2020/04/20/cloud-compute/</loc>
+    
+    <lastmod>2020-06-07T04:11:52.521Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sunxiaojie99.github.io/2020/06/01/DCCN/</loc>
     
-    <lastmod>2020-06-07T04:08:21.066Z</lastmod>
+    <lastmod>2020-06-07T04:11:45.115Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>https://sunxiaojie99.github.io/2020/04/21/pytorch/</loc>
     
     <lastmod>2020-05-15T02:54:32.350Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://sunxiaojie99.github.io/2020/04/20/cloud-compute/</loc>
-    
-    <lastmod>2020-04-20T07:47:38.427Z</lastmod>
     
   </url>
   
