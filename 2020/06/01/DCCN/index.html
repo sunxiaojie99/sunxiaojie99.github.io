@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://sunxiaojie99.github.io">
-  <title>Archives | Clean</title>
+  <title>Densely Connected Convolutional Networks | Clean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Clean">
-<meta property="og:url" content="https://sunxiaojie99.github.io/archives/index.html">
+  <meta name="description" content="Densely Connected Convolutional Networks#时间：2018-6 摘要：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Densely Connected Convolutional Networks">
+<meta property="og:url" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/index.html">
 <meta property="og:site_name" content="Clean">
+<meta property="og:description" content="Densely Connected Convolutional Networks#时间：2018-6 摘要：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/1.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/1.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/2.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/3.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/4.png">
+<meta property="article:published_time" content="2020-06-01T03:28:52.000Z">
+<meta property="article:modified_time" content="2020-06-07T04:08:21.066Z">
 <meta property="article:author" content="Carol Sun">
+<meta property="article:tag" content="paper">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunxiaojie99.github.io/2020/06/01/DCCN/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Clean" type="application/atom+xml">
   
@@ -140,36 +151,158 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-DCCN" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Densely Connected Convolutional Networks
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/01/DCCN/" class="archive-article-date">
+
+        
+        <a href="/2020/06/01/DCCN/" class="archive-article-date">
   	<time datetime="2020-06-01T03:28:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-01</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/01/DCCN/">Densely Connected Convolutional Networks</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1><span id="densely-connected-convolutional-networks">Densely Connected Convolutional Networks</span><a href="#densely-connected-convolutional-networks" class="header-anchor">#</a></h1><p>时间：2018-6</p>
+<p><strong>摘要</strong>：最近的工作表明，如果在靠近输入的层和靠近输出的层之间包含更短的连接，那么卷积网络可以显著地更深、更准确、更有效。DenseNet 根据这一观察结果，将每一层以前馈的方式连接到其余的每一层。传统的具有 $L$ 层的卷积网络有 $L$ 个连接（每层与其后续层之间有一个），我们的网络拥有 $L(L+1)/2$ 个直连接（$ C_{L}^{2}$）。对于每一层，使用前面所有层的特征图作为输入，它自己的特征图作为所有后续层的输入。</p>
+<p>DenseNet 有以下几个<strong>优点</strong>：</p>
+<ol>
+<li>减轻了梯度消失带来的问题</li>
+<li>增强了特征的传播</li>
+<li>鼓励特征重用</li>
+<li>大大减少了参数量</li>
+</ol>
+<p>源码：<a href="https://www.cnblogs.com/yjphhw/p/10034265.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjphhw/p/10034265.html</a></p>
+<p><a href="https://gitee.com/sxjhello/vision/blob/master/torchvision/models/densenet.py" target="_blank" rel="noopener">https://gitee.com/sxjhello/vision/blob/master/torchvision/models/densenet.py</a></p>
+<h2><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h2><p>各种CNN已经成为了视觉对象识别的主流机器学习方法。虽然它们最初是在20多年前引入，但直到最近才得到更近一步的发展。最初的LeNet5 包含5层，VGG 有19 层，直到 Highway Networks 和  Residual Networks（ResNets）的出现，才达到了100层之上。</p>
+<p>随着 CNN 变得越来越深，梯度消失问题出现了：当关于输入或梯度的信息传递了很多层之后，当它到达网络的末端（或开始）时，它可能消失。 </p>
+<p>因为<strong>梯度消失</strong>的问题，提出了许多解决办法。<u>Highway Net</u> 和 <u>ResNet</u> 通过身份连接（identity connections）将信号从一层传到下一层。<u>Stochastic depth</u> 通过随机丢弃 ResNet 在训练期间的层来获得更好的信息和梯度流。 <u>FractalNets</u> 重复组合具有不同卷积块数量的几个平行层序列，以获得较大的深度，同时在网络中保持许多 short paths。虽然不同的方法各不相同，但它们有一个共同的特征：<strong>它们均创建了从 early layers 到 later layers 的 short paths.</strong></p>
+<p>在这篇论文中，提出了一种将这种特性提炼为简单的连接模式的架构：来确保网络各层之间最大的信息流，<strong>将所有层（具有同样大小的匹配的特征图）彼此进行直接连接</strong>。</p>
+<p>为了保持这种前馈特性，每一层要从之前所有层中获得额外的输入，并将自身的特征图传到后续所有层中，如图1：</p>
+<p><img src="/2020/06/01/DCCN/1.png" style="zoom:80%;"></p>
+<p>值得注意的是：和 ResNet 相比，这里没有通过将特征求和的组合方式传到一个图层中，相反，这里采用了连接的组合方式。</p>
+<p>因此，第 $l$ 层有 $l$ 个输入（从0开始编号），这些输入是由第 $l$ 层之前的所有卷积块的特征图组成，它自己的特征图传向了其后的  $L-l$ 个后续层。这就引入了  $L$ 层网络的  $\frac{L(L+1)}{2}$ 个连接，而不是传统的 $L$ 个连接。</p>
+<p>因为这种<strong>密集连接的模式</strong>（dense connectivity pattern），所以顾名思义，得到了 Dense Convolutional Network (DenseNet)。</p>
+<p>注：这种密集连接的模式的一个可能与直觉相反的效果是，<strong>它需要比传统卷积网络更少的参数</strong>，因为它不需要重新学习冗余的特征图。<u>传统的前馈结构</u>可以看作一种状态算法，这种状态从一层传递到下一层，每一层从它的前一层读取状态，并写入后面的层。虽然这种方式改变了状态，但是传递了需要保留的信息。</p>
+<p>ResNet 通过 additive identity transformations 达到了使信息显式保持的目的。ResNet的最新变体[13]表明，许多层的贡献很小，实际上可以在训练期间随机丢弃。ResNet的参数量大很多，因为每一层都有自己的权重。</p>
+<p>而这里提出的 DenseNet 结构将添加到网络上的信息和需要保留的信息进行了明确的区分，<strong>DenseNet 的各层都非常窄</strong>（比如，每层只有12个 filter），仅向网络的  “collective knowledge（集体知识）”  中添加一小部分特征图，并保持其余的特征图不变，最终的分类器基于网络中所有的特征图进行决策。</p>
+<p>DenseNet 的另外一大优点是它们<strong>改善了整个网络中的信息流和梯度流</strong>，这使得它们更容易训练。每一层都能直接从损失函数和原始输入信号中获得梯度，这有助于<strong>训练更深层次的网络架构</strong>。此外，还发现密集连接有一种<strong>正则化（regularization）的效果</strong>，这减小了在小规模训练集上的任务的过拟合问题。</p>
+<p><strong>summary：</strong></p>
+<ol>
+<li>需要更少的参数量</li>
+<li>有助于训练更深的网络架构</li>
+<li>正则化效果，解决过拟合问题</li>
+</ol>
+<p>【注：<u>一些 benchmark datasets</u>：CIFAR-10，CIFAR-100，SVHN，ImageNet】</p>
+<h2><span id="xiang-guan-gong-zuo">相关工作</span><a href="#xiang-guan-gong-zuo" class="header-anchor">#</a></h2><p><u>Highway Net</u> 是首批提供一种有效地训练超过100层的端到端的网络体系结构之一。Highway Net 使用了 bypassing paths along with gating units，可以毫不费力的优化上百层。<strong>The bypassing paths</strong> 是可以更加容易地训练非常深的网络的关键。<u>ResNets</u> 就是进一步支持了这一点，在 ResNets 中，使用了  pure identity mappings 来作为 The bypassing paths。</p>
+<p>而且， <strong>stochastic depth</strong> 通过在训练期间随机丢弃 layers，成功训练了 1202 层的 ResNet。这表明并非所有层都是必需的，并表明 <strong>deep (residual) networks 中存在大量冗余</strong>。DenseNet 便是在一定程度上受了该 observation 的启发。</p>
+<p>一种使网络更深（例如，借助 skip connections）的正交化方法是<strong>增加网络的宽度</strong>，GoogleNet 就是这种。GoogleNet 使用 “Inception module” 将由不同大小的 filter 生成的特征图连接在一起。事实上，简单地增加 ResNets 各层 filter 的数量，就可以在足够深的网络中提升其性能。 <u>FractalNets</u> 使用这样的 wide network structure 也取得了不错的结果。</p>
+<p>DenseNet 没有采用极深的或极宽的结构进行代表性的特征抽取，而是通过<strong>特征复用</strong>来发掘网络的潜能，生成易于训练和参数高效化的精简模型。连接不同层学习的特征图可以增加后续层的输入的变化并提高效率，这就是 <strong>DenseNet 和 ResNet 的主要区别</strong>。和将来自不同层的特征连接到一起的 Inception networks 相比，DenseNets 更加简洁高效。</p>
+<h2><span id="densenets">DenseNets</span><a href="#densenets" class="header-anchor">#</a></h2><p>考虑一张通过卷积网络的图片 $x_0$ ，该网络包含 $L$ 层，每个层实现一个非线性转换 $H_l(·)$ ，其中 $l$ 表示层的编号，$H(·)$ 可以是诸如 Batch Normalization(BN)、rectified linear units (ReLU)、Pooling 或者 Convolution (Conv) 等操作的复合函数。我们将第 $l$ 层的输出定义为 $x_l$ </p>
+<ol>
+<li><p><strong>ResNet</strong>：</p>
+<ul>
+<li>传统的前馈卷积网络，将第 $l$ 层的输出作为输入连接到第 $l+1$ 层，产生以下转换： $x_l = H_l(x_{l-1})$ ；</li>
+<li>ResNet 增加了一个<strong>跨层连接（skip-connection）</strong>，它使用 <strong>identity function</strong> （恒等函数）绕过了非线性变换：$x_l = H_l(x_{l-1})+x_{l-1}$ 。</li>
+<li>ResNet 的一个优点是梯度可以直接通过 identity function 从后面的层流到较前面的层。但是， identity function （恒等函数）和输出是通过求和的方式连接到一起，可能会阻碍网络中的信息流。</li>
+</ul>
+</li>
+<li><p><strong>Dense connectivity：</strong></p>
+<ul>
+<li><p>为了进一步改善各层间的信息流，这里提出了一个不同的连接模式：提出了从任何层向其所有后续层的直连接，如图1所示。</p>
+</li>
+<li><p>因此，第 $l$  层接受其前所有层的特征图作为输入：$x_l = H_l([x_0,x_1,…,x_{l-1}])$ </p>
+</li>
+<li><p>其中 $[x_0, x_1,…,x_l-1]$ 表示第 $0$ 到 $l-1$ 层产生的特征图的连接。</p>
+</li>
+<li><p>为了便于应用，我们将上式中的多输入 $[x_0, x_1,…,x_l-1]$ 连接成一个张量（ a single tensor）。</p>
+<p><img src="/2020/06/01/DCCN/1.png" style="zoom: 67%;"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>Composite function</strong>：</p>
+<ul>
+<li>将 $H_l(·)$ 定义为一个复合函数，它有三部分连续的操作组成：<strong>Batch Normalization、ReLU 和一个3x3的卷积操作</strong>。</li>
+</ul>
+</li>
+<li><p><strong>Pooling layers：</strong></p>
+<ul>
+<li>当特征图的尺寸发生变化时，$x_l = H_l([x_0,x_1,…,x_{l-1}])$  中的连接操作是不可行的。然而，卷积网络的一个重要组成部分就是下采样层，它可以改变特征图的尺寸。</li>
+<li>为了便于在我们的网络结构中使用下采样层（down-sampling layers），我们将网络划分为多个紧密相连的<strong>密集块（dense blocks）</strong>，如图2所示。</li>
+<li>我们将块之间的层称为<strong>过渡层（transition layers）</strong>，它们进行卷积和池化操作。</li>
+<li>本文实验中使用的过渡层包括一个 BN 层和一个 1x1 的卷积层，其次是一个 2x2 的平均池化层。</li>
+</ul>
+<p><img src="/2020/06/01/DCCN/2.png" style="zoom:150%;"></p>
+<p><em>图2 ：一个拥有三个稠密块的 DenseNet 网络，两个相邻块之间的层称为过渡层，通过卷积和池化来改变特征图的大小。</em></p>
+</li>
+<li><p><strong>Growth rate：</strong></p>
+<ul>
+<li>如果每个函数 $H_l$ 产生 $k$ 个特征图，那么第 $l$ 层的输入特征图总数为：$k_0 + k × (l-1)$ ，$k_0$ 代表输入层的  channels 数量。（就是每一层的输出是 k 个特征图，前面有 $l-1$ 层，然后再把原始输入层的 $k_0$ 个输入加上）</li>
+<li>DenseNet和现有网络结构的一个重要区别在于DenseNet具有很窄的层，例如 k=12 ，我们把<strong>超参数 <code>k</code> 称为网络的增长率（growth rate）</strong>。我们的实验表明一个较小的增长率就可以获得相对好的效果。</li>
+<li>一种解释就是，网络的各块中的每一层都可以获得该块内其前的所有特征图，因此，可以访问网络的集体知识（“collective knowledge”）。每一层都可以将特征图看作网络的全局状态，并且可以将自己的<code>k</code>个特征图添加到这个全局状态中。<strong>增长率 <code>k</code> 调节每一层对全局状态贡献的新信息量。</strong>全局状态一经编写，就可以从网络的任何地方进行获取，并且与传统网络不同，不需要从一层复制到另一层。</li>
+</ul>
+</li>
+<li><p><strong>Bottleneck layers</strong></p>
+<ul>
+<li>尽管每一层仅产生 k 个特征图，但它通常情况下拥有更多的输入。在每个 3x3 卷积前引入 1x1卷积作为瓶颈层（bottleneck layer ），可以减少输入特征图的数量，从而可以提高计算效率。</li>
+<li>这样的设计对于 DenseNet 特别有效，即网络中的 bottleneck layer  ：由 $BN-ReLU-Conv(1×1)-BN-ReLU-Conv(3×3)$ 组成 $H_l$ 版本 DenseNet 称为 <strong>DenseNet-B</strong>。（B 代表 Bottleneck）</li>
+<li>在本文的实验中，我们令每个 $1×1$ 卷积产生 $4k$ 个特征图（k 应该是增长率）。</li>
+</ul>
+</li>
+<li><p><strong>Compression：</strong></p>
+<ul>
+<li>为了进一步提高模型的紧凑性，我们可以在过渡层减少特征图的数量。</li>
+<li>如果一个密集块 （dense block） 包含<code>m</code>个特征图，我们让其后的过渡层（transition layer）输出 $\lfloor \theta m \rfloor$ 个特征图。其中 $0 &lt; \theta \leq 1$ 被称作<strong>压缩因子（compression factor）</strong>。</li>
+<li>当 $θ=1$ 时，通过过渡层的特征图数量不变，我们在实验中设置 $θ=0.5$</li>
+<li>我们将同时使用了 bottleneck layer 和 $\theta &lt; 1$ 的transition layer 的 DenseNet 称作 <strong>DenseNet-BC</strong>。（ Bottleneck + Compression）</li>
+</ul>
+</li>
+<li><p><strong>Implenentation Details</strong> 实现细节：</p>
+<ul>
+<li><p>除了 ImgageNet 以外的所有数据集，我们实验中使用的 DenseNet 都有三个 dense block ，每个块内的层数都是相等的。</p>
+<ul>
+<li>在进入第一个 dense block 之前，在输入图像上进行具有16 个输出通道的卷积（或者具有两倍 growth rate $k$ 的）DenseNet-BC。</li>
+<li>对于卷积核大小（kernel size）为 3x3 的卷积层，输入的每一侧都被填充一个像素，以保持特征图的大小不变。</li>
+<li>我们在1x1的卷积后跟一个2x2的平均池化层作为过渡层连接两个相邻的密集块。</li>
+<li>在最后一个密集块（ dense block ）之后，执行一个全局平均池化（global average pooling），然后附加一个 softmax 分类器。</li>
+<li>三个 dense block 内的特征图尺寸分别为 32x32、16x16 和 8x8。</li>
+<li>作者使用了参数为 {L=40，k=12}、{L=100，k=12} 和 {L=100，k=24}的基本 DenseNet 结构进行实验。</li>
+<li>对于 DenseNetBC 结构，评估了参数为 {L=100，k=12}、{L=250，k=24}和{L=190，k=40} 的网络。</li>
+</ul>
+</li>
+<li><p>在 ImageNet 上的实验中，在 224×224 的输入图像上，我们使用了具有4个 dense block 的 DenseNet-BC 结构。初始的卷积层中包含 $2k$ 个卷积（大小为 7×7，stride 为2）；其他所有层特征图的数量均为 $k$ 。在 ImageNet 上使用的确切网络配置如表1。</p>
+<p><img src="/2020/06/01/DCCN/3.png" style="zoom:200%;"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2><span id="shi-yan">实验</span><a href="#shi-yan" class="header-anchor">#</a></h2><p>所有训练的网络都使用 SGD 梯度下降。</p>
+<p>在 CIFAR 和 SVHN 上训练的 batch size为64，epoch 分别为 300 和 40 。初始学习率设置为0.1。</p>
+<p>在 ImageNet 上，epoch 为 90，batch size 为 256，初始学习率设置为 0.1，在 epoch 为30和60的时候，学习率降低10倍。</p>
+<h2><span id="tao-lun">讨论</span><a href="#tao-lun" class="header-anchor">#</a></h2><h3><span id="model-compactness-mo-xing-jin-cou-xing">Model compactness 模型紧凑型</span><a href="#model-compactness-mo-xing-jin-cou-xing" class="header-anchor">#</a></h3><p>通过直连接，由 DenseNet 中任何层学习得到的特征图都可以被所有的后续层所访问。这鼓励了网络中的特征虫咬，提供了更紧凑的模型。</p>
+<p><img src="/2020/06/01/DCCN/4.png" alt></p>
+<p>left：显示了DenseNet-BC 始终是 DenseNet 参数效率最高的变体。</p>
+<p>middle：为了达到相同的 accuracy ，DenseNet-BC 只需要 ResNet 大约 $\frac{1}{3}$ 的参数。</p>
+<p>right：仅具有0.8M可训练参数的 DenseNet-BC 能够达到与具有10.2M参数的1001层（激活前）ResNet相当的精度。</p>
+<h3><span id="implicit-deep-supervision-yin-shi-shen-du-jian-du">Implicit Deep Supervision 隐式深度监督</span><a href="#implicit-deep-supervision-yin-shi-shen-du-jian-du" class="header-anchor">#</a></h3><p> DenseNet 的 accuracy 得到提升的一种解释是各个层通过 the shorter connections 接受到了来自 loss function 的额外监督。可以将 DenseNet 解读为一种 “deep supervision”。深度监督的好处是它将分类器附加到每个隐藏层，强制中间层学习具有区别性特征。</p>
+<p>DenseNets 隐式执行类似的深度监督，网络顶部的单个分类器通过两到三个过渡层向所有层提供直接监督。然而，DenseNet 的损失函数和梯度基本上没有那么复杂，因为相同的损失函数在所有层之间共享。</p>
+<h3><span id="stochastic-vs-deterministic-connection">Stochastic vs. deterministic connection</span><a href="#stochastic-vs-deterministic-connection" class="header-anchor">#</a></h3><p>随机连接与确定性连接，在 dense convolutional networks 和 stochastic depth regularization of residual networks 之间存在一个有趣的联系。在 stochastic depth 中， residual networks 中的层被随机丢弃，从而产生和周围层的直接连接。由于池化层从不丢弃，因此网络会产生与DenseNet类似的连接模式。</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -181,323 +314,55 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/3D%20Point%20Clouds/" class="archive-article-date">
-  	<time datetime="2020-04-30T01:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/30/3D%20Point%20Clouds/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Point cloud learning</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/3D%20Point%20Clouds/">Point cloud learning</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/21/pytorch/" class="archive-article-date">
-  	<time datetime="2020-04-21T14:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/21/pytorch/">Pytorch 及其应用</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/21/pytorch_help/" class="archive-article-date">
-  	<time datetime="2020-04-21T14:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/21/pytorch_help/">pytorch help</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/20/cloud-compute/" class="archive-article-date">
-  	<time datetime="2020-04-20T03:28:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/20/cloud-compute/">A View of Cloud Computing</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/18/world/" class="archive-article-date">
-  	<time datetime="2020-04-18T06:31:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/18/world/">build a wonderful world</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/APIE/" class="archive-article-date">
-  	<time datetime="2020-04-16T03:28:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/APIE/">Attribute-aware Pedestrian Image Editing</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/13/markdown/" class="archive-article-date">
-  	<time datetime="2020-04-13T06:51:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/13/markdown/">how to use markdown</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/13/About%20Me/" class="archive-article-date">
-  	<time datetime="2020-04-13T04:34:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/13/About%20Me/">The Website</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">other</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -520,8 +385,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
