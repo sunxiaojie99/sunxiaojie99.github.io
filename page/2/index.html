@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://sunxiaojie99.github.io">
-  <title>Pytorch 及其应用 | Clean</title>
+  <title>Clean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="pytorch及其应用优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；  针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；  因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch 及其应用">
-<meta property="og:url" content="https://sunxiaojie99.github.io/2020/04/21/pytorch/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Clean">
+<meta property="og:url" content="https://sunxiaojie99.github.io/page/2/index.html">
 <meta property="og:site_name" content="Clean">
-<meta property="og:description" content="pytorch及其应用优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；  针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；  因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-21T14:03:52.000Z">
-<meta property="article:modified_time" content="2020-05-15T02:54:32.350Z">
 <meta property="article:author" content="Carol Sun">
-<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Clean" type="application/atom+xml">
@@ -145,70 +140,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-pytorch" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-About Me" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Pytorch 及其应用
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/13/About%20Me/">The Website</a>
     </h1>
   
 
         
-        <a href="/2020/04/21/pytorch/" class="archive-article-date">
-  	<time datetime="2020-04-21T14:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+        <a href="/2020/04/13/About%20Me/" class="archive-article-date">
+  	<time datetime="2020-04-13T04:34:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="pytorch-ji-qi-ying-yong">pytorch及其应用</span><a href="#pytorch-ji-qi-ying-yong" class="header-anchor">#</a></h1><p><strong>优点</strong>：</p>
+        <h1><span id="jie-shao">介绍</span><a href="#jie-shao" class="header-anchor">#</a></h1><p>本网站用途：</p>
 <ol>
-<li>支持GPU、灵活；</li>
-<li>支持动态神经网络；</li>
-<li>底层代码易于理解；</li>
-<li>命令式体验；自定义扩展</li>
+<li>随时记录一些个人的学习总结；</li>
+<li>记录一些关于日常生活的感悟；</li>
+<li>其他一些杂七杂八的东西；</li>
 </ol>
-<p><strong>缺点</strong>：</p>
-<ol>
-<li><p>对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；</p>
-</li>
-<li><p>针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；</p>
-</li>
-<li><p>因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。</p>
-<a id="more"></a>
-</li>
-</ol>
-<h2><span id="huan-jing-pei-zhi">环境配置</span><a href="#huan-jing-pei-zhi" class="header-anchor">#</a></h2><ol>
-<li>有关conda虚拟环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conda list # 查看安装了哪些包</span><br><span class="line">conda env list # 查看当前存在哪些虚拟环境</span><br><span class="line">conda update conda # 检查更新当前conda</span><br><span class="line">python --version # 查看python版本</span><br><span class="line">conda create -n xxx python&#x3D;3.6 # xxx为自己命名的虚拟环境名称，该文件可在Anaconda安装目录 envs文件下找到</span><br><span class="line">conda create -n pytorch python&#x3D;3.6</span><br><span class="line">conda activate yorr_env_name # 激活虚拟环境</span><br><span class="line">conda install -n your_env_name [package] # 对虚拟环境安装额外的包</span><br><span class="line">deactivate # 关闭虚拟环境</span><br><span class="line">conda remove -n your_env_name --all</span><br><span class="line">conda remove --name your_env_name package_name # 删除环境中的某个包</span><br></pre></td></tr></table></figure></li>
-<li>虚拟环境下安装 jupyter</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda activate pytorch</span><br><span class="line">conda install nb_conda</span><br></pre></td></tr></table></figure>
-<ol>
-<li>pytorch安装<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda activate pytorch</span><br><span class="line">conda install pytorch torchvision cpuonly -c pytorch</span><br></pre></td></tr></table></figure></li>
-<li>离线安装（极其有用，血泪教训）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://download.pytorch.org/whl/torch_stable.html</span></span><br><span class="line"><span class="comment"># 下载对应的whl，然后安装</span></span><br><span class="line">pip install D:\software\Anaconda3\whl_download\torch<span class="number">-1.5</span><span class="number">.0</span>+cpu-cp36-cp36m-win_amd64.whl</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2><span id="python-xue-xi-zhong-de-liang-da-fa-bao-han-shu">Python学习中的两大法宝函数</span><a href="#python-xue-xi-zhong-de-liang-da-fa-bao-han-shu" class="header-anchor">#</a></h2><ol>
-<li><strong>dir() 道具</strong>：相当于你的手和眼睛，它可以帮你打开东西和看到其中的东西。能让你了解package有哪些东西，也许是更小的模块，或者是函数。dir() 函数，当输出是带有前后双下划线的，这个时候，就表明，这是一个函数，一个工具。你应该使用 help() 函数去查看这个工具的使用方法。</li>
-<li><strong>help() 道具</strong>：相当于说明书，你可以知道每个工具的使用方法。能让你知道函数的使用方法。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">dir(torch)</span><br><span class="line">help(torch.cuda.is_available)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2><span id="shu-ju">数据</span><a href="#shu-ju" class="header-anchor">#</a></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">img_path = <span class="string">""</span> <span class="comment"># 注意，win下\\</span></span><br><span class="line">img = Image.open(ima_path)</span><br><span class="line">img.show()</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">dir_path = <span class="string">""</span> <span class="comment"># /</span></span><br><span class="line">img_path_list = os.listdir(dir_path) <span class="comment"># 文件夹下的变成列表</span></span><br><span class="line"></span><br><span class="line">root_dir = <span class="string">"dataset/train"</span></span><br><span class="line">label_dir = <span class="string">"ants"</span></span><br><span class="line">path = os.path.join(root_dir,label_dir) <span class="comment"># 系统自动加起来，不会出错</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root_dir, label_dir)</span>:</span></span><br><span class="line">		self.root_dir = root_dir</span><br><span class="line">		self.label_dir = label_dir</span><br><span class="line">		self.path = os.path.join(self.root_dir,self.label_dir)</span><br><span class="line">		self.img_path = os.listdir(self.path) <span class="comment"># 所有图片的名称</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self,idx)</span>:</span></span><br><span class="line">		img_name = self.img_path[idx] <span class="comment"># 图片名</span></span><br><span class="line">		img_item_path = os.path.join(self.root_dir,self.label_dir, img_name) <span class="comment"># 图片相对路径地址</span></span><br><span class="line">		img = Image.open(img_item_path) <span class="comment"># 读取图片</span></span><br><span class="line">		label = self.label_dir <span class="comment"># 这里label就是文件名</span></span><br><span class="line">		<span class="keyword">return</span> img, label</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> len(self.img_path) <span class="comment"># 数据集的长度</span></span><br><span class="line"></span><br><span class="line">root_dir = <span class="string">"dataset/train"</span></span><br><span class="line">ants_label_dir = <span class="string">"ants"</span></span><br><span class="line">bees_label_dir = <span class="string">"bees"</span></span><br><span class="line">ants_dataset = MyData(root_dir, ants_label_dir)</span><br><span class="line">bees_dataset = MyData(root_dir, bees_label_dir)</span><br><span class="line"></span><br><span class="line">img, label = ants_dataset[<span class="number">0</span>] <span class="comment"># 就自动调用了__getitem__获取了第一个</span></span><br><span class="line">img.show()</span><br><span class="line"></span><br><span class="line">train_dataset = ants_dataset + bees_dataset <span class="comment"># 合并数据集 数据增强</span></span><br></pre></td></tr></table></figure>
-<h2><span id="gou-jian-zi-ji-de-wang-luo">构建自己的网络</span><a href="#gou-jian-zi-ji-de-wang-luo" class="header-anchor">#</a></h2><ol>
-<li>处理数据</li>
-<li>定义网络</li>
-<li>定义损失函数</li>
-<li>定义优化方法</li>
-<li>训练</li>
-</ol>
-<p><strong>一个例子</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoLayerNet</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, D_in, H, D_out)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        在构造函数中，我们实例化了两个nn.Linear模块，并将它们作为成员变量。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        super(TwoLayerNet, self).__init__()</span><br><span class="line">        self.linear1 = torch.nn.Linear(D_in, H)</span><br><span class="line">        self.linear2 = torch.nn.Linear(H, D_out)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        在前向传播的函数中，我们接收一个输入的张量，也必须返回一个输出张量。</span></span><br><span class="line"><span class="string">        我们可以使用构造函数中定义的模块以及张量上的任意的（可微分的）操作。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        h_relu = self.linear1(x).clamp(min=<span class="number">0</span>)</span><br><span class="line">        y_pred = self.linear2(h_relu)</span><br><span class="line">        <span class="keyword">return</span> y_pred</span><br><span class="line"></span><br><span class="line"><span class="comment"># N是批大小； D_in 是输入维度；</span></span><br><span class="line"><span class="comment"># H 是隐藏层维度； D_out 是输出维度</span></span><br><span class="line">N, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生输入和输出的随机张量</span></span><br><span class="line">x = torch.randn(N, D_in)</span><br><span class="line">y = torch.randn(N, D_out)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过实例化上面定义的类来构建我们的模型。</span></span><br><span class="line">model = TwoLayerNet(D_in, H, D_out)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造损失函数和优化器。</span></span><br><span class="line"><span class="comment"># SGD构造函数中对model.parameters()的调用，</span></span><br><span class="line"><span class="comment"># 将包含模型的一部分，即两个nn.Linear模块的可学习参数。</span></span><br><span class="line">loss_fn = torch.nn.MSELoss(reduction=<span class="string">'sum'</span>)</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=<span class="number">1e-4</span>)</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">500</span>):</span><br><span class="line">    <span class="comment"># 前向传播：通过向模型传递x计算预测值y</span></span><br><span class="line">    y_pred = model(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#计算并输出loss</span></span><br><span class="line">    loss = loss_fn(y_pred, y)</span><br><span class="line">    <span class="comment"># print(t, loss.item())</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 清零梯度，反向传播，更新权重</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure></p>
-<p>一个可以效仿的测试函数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(model, device, test_loader)</span>:</span></span><br><span class="line">    model.eval()</span><br><span class="line">    test_loss = <span class="number">0</span></span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> i,data <span class="keyword">in</span> enumerate(test_loader):          </span><br><span class="line">            x,y= data</span><br><span class="line">            x=x.to(device)</span><br><span class="line">            y=y.to(device)</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            y_hat = model(x)</span><br><span class="line">            test_loss += criterion(y_hat, y).item() <span class="comment"># sum up batch loss</span></span><br><span class="line">            pred = y_hat.max(<span class="number">1</span>, keepdim=<span class="literal">True</span>)[<span class="number">1</span>] <span class="comment"># get the index of the max log-probability</span></span><br><span class="line">            correct += pred.eq(y.view_as(pred)).sum().item()</span><br><span class="line">    test_loss /= len(test_loader.dataset)</span><br><span class="line">    print(<span class="string">'\nTest set: Average loss: &#123;:.4f&#125;, Accuracy: &#123;&#125;/&#123;&#125; (&#123;:.0f&#125;%)\n'</span>.format(</span><br><span class="line">        test_loss, correct, len(val_dataset),</span><br><span class="line">        <span class="number">100.</span> * correct / len(val_dataset)))</span><br></pre></td></tr></table></figure>
 
       
 
@@ -222,7 +181,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">other</a>
         		</li>
       		
 		</ul>
@@ -231,33 +190,16 @@
       
 
       
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/13/About%20Me/">展开全文 >></a>
+        </p>
+      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/04/21/pytorch_help/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          pytorch help
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/04/20/cloud-compute/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">A View of Cloud Computing</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -277,14 +219,12 @@
 
 
 
-  
-  
-  
 
   
-
   
-
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -307,8 +247,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

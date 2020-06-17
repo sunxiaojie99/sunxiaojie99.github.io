@@ -6,20 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://sunxiaojie99.github.io">
-  <title>Pytorch 及其应用 | Clean</title>
+  <title>Very Deep Convolutional Networks for Large-Scale Image Recognition | Clean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="pytorch及其应用优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；  针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；  因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。">
+  <meta name="description" content="Very Deep Convolutional Networks for Large-Scale Image Recognition    1. INTRODUCTION 2. ConvNet 配置 2.1 架构 配置 2.3 讨论   3 分类框架 3.1 Training 3.2 Testing   4. classification 实验 4.1 （图像）单尺度评估 4.2 多尺度评估 mu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch 及其应用">
-<meta property="og:url" content="https://sunxiaojie99.github.io/2020/04/21/pytorch/index.html">
+<meta property="og:title" content="Very Deep Convolutional Networks for Large-Scale Image Recognition">
+<meta property="og:url" content="https://sunxiaojie99.github.io/2020/06/16/vgg/index.html">
 <meta property="og:site_name" content="Clean">
-<meta property="og:description" content="pytorch及其应用优点：  支持GPU、灵活； 支持动态神经网络； 底层代码易于理解； 命令式体验；自定义扩展  缺点：  对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；  针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；  因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。">
+<meta property="og:description" content="Very Deep Convolutional Networks for Large-Scale Image Recognition    1. INTRODUCTION 2. ConvNet 配置 2.1 架构 配置 2.3 讨论   3 分类框架 3.1 Training 3.2 Testing   4. classification 实验 4.1 （图像）单尺度评估 4.2 多尺度评估 mu">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-21T14:03:52.000Z">
-<meta property="article:modified_time" content="2020-05-15T02:54:32.350Z">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/16/vgg/1.png">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=10%5E%7B%E2%88%922%7D">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/16/vgg/2.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/16/vgg/4.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/16/vgg/5.png">
+<meta property="og:image" content="https://sunxiaojie99.github.io/2020/06/16/vgg/6.png">
+<meta property="article:published_time" content="2020-06-15T16:12:52.000Z">
+<meta property="article:modified_time" content="2020-06-17T08:32:25.012Z">
 <meta property="article:author" content="Carol Sun">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="paper">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunxiaojie99.github.io/2020/06/16/vgg/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Clean" type="application/atom+xml">
   
@@ -145,70 +152,172 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-pytorch" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vgg" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Pytorch 及其应用
+      Very Deep Convolutional Networks for Large-Scale Image Recognition
     </h1>
   
 
         
-        <a href="/2020/04/21/pytorch/" class="archive-article-date">
-  	<time datetime="2020-04-21T14:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+        <a href="/2020/06/16/vgg/" class="archive-article-date">
+  	<time datetime="2020-06-15T16:12:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="pytorch-ji-qi-ying-yong">pytorch及其应用</span><a href="#pytorch-ji-qi-ying-yong" class="header-anchor">#</a></h1><p><strong>优点</strong>：</p>
+        <h1><span id="very-deep-convolutional-networks-for-large-scale-image-recognition">Very Deep Convolutional Networks for Large-Scale Image Recognition</span><a href="#very-deep-convolutional-networks-for-large-scale-image-recognition" class="header-anchor">#</a></h1><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#1-introduction">1. INTRODUCTION</a></li>
+<li><a href="#2-convnet-pei-zhi">2. ConvNet 配置</a><ul>
+<li><a href="#2-1-jia-gou">2.1 架构</a></li>
+<li><a href="#pei-zhi">配置</a></li>
+<li><a href="#2-3-tao-lun">2.3 讨论</a></li>
+</ul>
+</li>
+<li><a href="#3-fen-lei-kuang-jia">3 分类框架</a><ul>
+<li><a href="#3-1-training">3.1 Training</a></li>
+<li><a href="#3-2-testing">3.2 Testing</a></li>
+</ul>
+</li>
+<li><a href="#4-classification-shi-yan">4. classification 实验</a><ul>
+<li><a href="#4-1-tu-xiang-dan-chi-du-ping-gu">4.1 （图像）单尺度评估</a></li>
+<li><a href="#4-2-duo-chi-du-ping-gu-multi-scale">4.2 多尺度评估 multi-scale</a></li>
+<li><a href="#4-3-duo-cai-qie-tu-xiang-ping-gu-muti-crop">4.3 多裁切图像评估 muti-crop</a></li>
+<li><a href="#4-4-juan-ji-wang-luo-rong-he-convnet-fusion">4.4 卷积网络融合 Convnet Fusion</a></li>
+</ul>
+</li>
+<li><a href="#5-jie-lun">5. 结论</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<p>[TOC]</p>
+<p>论文时间：2015年</p>
+<ul>
+<li>研究内容：大规模图像识别任务下卷积网络深度对其预测准确率的影响</li>
+<li>主要贡献：使用具有非常小的（3×3）卷积滤波器（convolution filters）的架构对深度不断递增的网络进行全面评估。</li>
+</ul>
+<p>VGG模型论文探讨并证明了以下观点：</p>
 <ol>
-<li>支持GPU、灵活；</li>
-<li>支持动态神经网络；</li>
-<li>底层代码易于理解；</li>
-<li>命令式体验；自定义扩展</li>
+<li>用多层的卷积层组合配以小尺寸的滤波器（3 <em> 3），能实现大尺寸滤波器的感受野的同时，还能使参数数量更少；（其他模型可能会用11</em>11，stride=4的卷积核）</li>
+<li>加深模型深度可以获得更好的分类结果</li>
+<li>训练期间分阶段降低学习率有助模型收敛；</li>
+<li>在数据增强方面，训练时：随机从rescale后的图中裁出224*224的区域（如果rescale后的图很大，那截取到的只是图中的一部分），接下来后再水平翻转，RGB通道随机变换；测试时候，将模型的全连接改成卷积。</li>
 </ol>
-<p><strong>缺点</strong>：</p>
-<ol>
-<li><p>对比TensorFlow，全面性不足，不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；</p>
-</li>
-<li><p>针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；</p>
-</li>
-<li><p>因为框架较新，社区没有那么强大，在文档方面其C库大多数没有文档。</p>
 <a id="more"></a>
-</li>
-</ol>
-<h2><span id="huan-jing-pei-zhi">环境配置</span><a href="#huan-jing-pei-zhi" class="header-anchor">#</a></h2><ol>
-<li>有关conda虚拟环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conda list # 查看安装了哪些包</span><br><span class="line">conda env list # 查看当前存在哪些虚拟环境</span><br><span class="line">conda update conda # 检查更新当前conda</span><br><span class="line">python --version # 查看python版本</span><br><span class="line">conda create -n xxx python&#x3D;3.6 # xxx为自己命名的虚拟环境名称，该文件可在Anaconda安装目录 envs文件下找到</span><br><span class="line">conda create -n pytorch python&#x3D;3.6</span><br><span class="line">conda activate yorr_env_name # 激活虚拟环境</span><br><span class="line">conda install -n your_env_name [package] # 对虚拟环境安装额外的包</span><br><span class="line">deactivate # 关闭虚拟环境</span><br><span class="line">conda remove -n your_env_name --all</span><br><span class="line">conda remove --name your_env_name package_name # 删除环境中的某个包</span><br></pre></td></tr></table></figure></li>
-<li>虚拟环境下安装 jupyter</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda activate pytorch</span><br><span class="line">conda install nb_conda</span><br></pre></td></tr></table></figure>
+<h2><span id="1-introduction">1. INTRODUCTION</span><a href="#1-introduction" class="header-anchor">#</a></h2><p>本文解决了ConvNet架构设计的一个重要方面——深度。为此，固定（v）了结构中的其他参数，并通过<strong>增加更多的卷积层来稳步增加网络的深度</strong>，这是可行的，因为在所有层中都使用了<strong>非常小的（3×3）卷积滤波器（convolution filters）</strong>。</p>
+<h2><span id="2-convnet-pei-zhi">2. ConvNet 配置</span><a href="#2-convnet-pei-zhi" class="header-anchor">#</a></h2><p>为了衡量ConvNet深度在公平环境中所带来的改进，我们所有的ConvNet层配置都采用相同的原则设计。在本部分中，首先描述ConvNet配置的通用布局（第2.1节），然后详细说明评估中使用的具体配置（第2.2节）。 然后（第2.3节）讨论我们的设计选择，并与现有技术进行比较。</p>
+<h3><span id="2-1-jia-gou">2.1 架构</span><a href="#2-1-jia-gou" class="header-anchor">#</a></h3><p>在训练期间，ConvNets的输入是固定尺寸的224×224 RGB图像。</p>
+<ul>
+<li>预处理：唯一做的预处理是从每个像素中<strong>减去在训练集上计算的RGB均值</strong>。</li>
+<li>图像通过堆叠的卷积层，其中使用了感受野（receptive field）非常小的<strong>卷积核（filters ）：3×3</strong>（这是左/右，上/下，中心点概念可捕获的最小尺寸）。</li>
+<li>在其中一种配置中，我们还使用1×1卷积滤波器，这可以看作是输入通道的线性变换（随后是非线性）。</li>
+<li>卷积<strong>步长 stride</strong> 固定为1个像素；</li>
+<li><strong>卷积层的空间填充</strong>（spatial padding）是指，使得在卷积操作后保留原空间的分辨率（resolution），比如如果使用3×3 卷积核，就填充1个像素。</li>
+<li><strong>空间池化（Spatial pooling ）</strong>是由五个最大池化层完成的，每个池化层前面都会有若干个卷积层（并非所有的卷积层后都使用最大池化层）。 </li>
+<li><strong>Max-pooling 最大池化</strong>是以2×2像素窗口上执行，步幅为2。</li>
+<li>堆叠的卷积层（在不同的体系结构中具有不同的深度）之后是三个<strong>完全连接（FC）层</strong>：前两个具有4096个通道，第三个执行1000类别的ILSVRC分类，因此包含1000个通道（一个 为每个类）。</li>
+<li>最后一层是<strong>soft-max层</strong>。 全连接层的配置在所有网络中都是相同的。</li>
+<li><u>所有隐藏层</u>都配备了<strong>ReLU激活函数</strong>。注意到我们的网络（除了一个网络）都没有包含局部响应归一化层标准化（LRN Local Response Normalisation）。这种标准化不会提升ILSVRC数据集的性能，但会导致内存消耗和计算时间的增加。</li>
+</ul>
+<h3><span id="pei-zhi">配置</span><a href="#pei-zhi" class="header-anchor">#</a></h3><p>本文中评估的ConvNet配置在表1中列出，每列一个。 下面我们将以他们的名字（A-E）来提及。 </p>
+<p>所有的配置都遵循2.1节中提到的通用设计，并且仅在深度上有所不同：从网络A中的11个权重层（weight layers）（8个卷积层和3个全连接层）到网络E中的19个权重层（weight layers）（16个卷积层和3个全连接层）。</p>
+<p>卷积层的宽度（通道 channel 数量）相当小，从第一层的64开始，然后在每个最大池层后增加1倍，直到达到512。</p>
+<p>在表2中，我们报告了每个配置的参数数目。 <u>尽管深度很大，但我们网络的权重数量不会超过那些深度较小、但卷积核和感受野宽度更大的网络</u>。</p>
+<p><img src="/2020/06/16/vgg/1.png" style="zoom:67%;"></p>
+<p>注意到在没有任何标准化层的情况下，使用局部响应标准化（ local response normalisation）（A-LRN网络）在模型A上没有改进。 因此，我们在深层架构（B-E）中不采用标准化层。</p>
+<h3><span id="2-3-tao-lun">2.3 讨论</span><a href="#2-3-tao-lun" class="header-anchor">#</a></h3><p><strong>区别性</strong>：我们 ConvNet配置与 ILSVRC-2012以及 ILSVRC-2013的最佳模型相比有着较大差别。区别于<strong>之前的模型在首层卷积层所使用的较大的感受野</strong>（比如11x11卷积核配合步幅4（Krizhevsky et al., 2012），7x7卷积核配合步幅2（Zeiler &amp; Fergus, 2013; Sermanet et al., 2014）），<strong>我们整体都使用了非常小的3x3卷积核配合步幅1</strong>。</p>
+<p><strong>等效性</strong>：显而易见的是，用两层的3x3卷积层组合（中间不包含池化层）所得到的感受野相当于一层的5x5卷积层的感受野；而三层这样的卷积层组合所得到的感受野相当于一层的7x7卷积核的感受野。</p>
+<p><strong>更强的分辨力</strong>：如果我们用三层3x3的卷积层组合来代替一层7x7卷积层，我们会得到什么呢？首先，我们并入了三个ReLU激活函数，而不是一个，这使决策功能的分辨力更强。 </p>
+<p><strong>更少的参数</strong>：其次，我们减少参数的数量：假设三层3×3卷积层相叠的输入和输出都具有C个通道，则该叠层参数化为 $3×(3^2C^2)=27C^2$ 个权重; 同时，一个7×7 卷积层需要 $7^2C^2=49C^2$  参数，参数量会增加 81％。 这<u>可以被看作是在7×7卷积中实施正规化</u>（regularisation）， <u>迫使他们通过3×3卷积核进行分解</u>（两者之间注入非线性）。</p>
+<p><strong>1×1卷积核</strong>：纳入1×1卷积核（配置C，表1）是一种<u>增加决策函数的非线性而不影响卷积层感受野</u>的方法。 尽管在我们的例子中，1×1卷积本质上是一个线性投影到相同维度的空间上（输入和输出通道的数目是相同的），但激活函数引入了一个额外的非线性。 </p>
+<p><strong>与其他工作的对比</strong>：</p>
 <ol>
-<li>pytorch安装<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda activate pytorch</span><br><span class="line">conda install pytorch torchvision cpuonly -c pytorch</span><br></pre></td></tr></table></figure></li>
-<li>离线安装（极其有用，血泪教训）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://download.pytorch.org/whl/torch_stable.html</span></span><br><span class="line"><span class="comment"># 下载对应的whl，然后安装</span></span><br><span class="line">pip install D:\software\Anaconda3\whl_download\torch<span class="number">-1.5</span><span class="number">.0</span>+cpu-cp36-cp36m-win_amd64.whl</span><br></pre></td></tr></table></figure>
+<li>大规模数据集+更深：Ciresan等人以前曾使用过小尺寸的卷积滤波器 （2011年），但他们的网络明显不如我们的深，并且他们没有对大规模ILSVRC数据集进行评估。</li>
+<li>Goodfellow等人（2014）将深度ConvNets（11个权重层）应用于街道号识别任务，并表明增加深度能获得更好的性能。</li>
+<li>GoogLeNet（Szegedy et al.，2014）是ILSVRC-2014分类任务中性能最好的一个入门版本，它的开发与我们的工作无关，但它的基础是非常深的ConvNets（22个加权层）和小卷积滤波器（除3×3外，还使用1×1和5×5卷积）。并且，它们的网络拓扑结构比我们的要复杂，并且在第一层更积极地降低了特征图的空间分辨率，以减少计算量。正如将在4.5节中所显示的那样，我们的模型超过了Szegedy等人的模型（2014年）的单网分类准确性。</li>
+</ol>
+<h2><span id="3-fen-lei-kuang-jia">3 分类框架</span><a href="#3-fen-lei-kuang-jia" class="header-anchor">#</a></h2><p>之前介绍了网络配置的细节。 在本节中，我们将介绍ConvNet训练和评估的分类细节。</p>
+<h3><span id="3-1-training">3.1 Training</span><a href="#3-1-training" class="header-anchor">#</a></h3><p>训练是通过使用<strong>小批量梯度下降</strong>（mini-batch gradient descent）（基于反向传播）的<strong>动量优化多项逻辑回归目标</strong>（optimising the multinomial logistic regression objective with momentum）来实现的。</p>
+<p><strong>具体配置细节：</strong></p>
+<ul>
+<li><p><u>批量大小（batch size）</u>设置为256，<u>动量（momentum）</u>为0.9。 训练通过<u>weight 衰减</u>（L2惩罚系数设置为 $5·10^{-4}$ ）和前两个全连接层（<u>dropout</u>设置为0.5）的dropout正则化来调整。 </p>
 </li>
-</ol>
-<h2><span id="python-xue-xi-zhong-de-liang-da-fa-bao-han-shu">Python学习中的两大法宝函数</span><a href="#python-xue-xi-zhong-de-liang-da-fa-bao-han-shu" class="header-anchor">#</a></h2><ol>
-<li><strong>dir() 道具</strong>：相当于你的手和眼睛，它可以帮你打开东西和看到其中的东西。能让你了解package有哪些东西，也许是更小的模块，或者是函数。dir() 函数，当输出是带有前后双下划线的，这个时候，就表明，这是一个函数，一个工具。你应该使用 help() 函数去查看这个工具的使用方法。</li>
-<li><strong>help() 道具</strong>：相当于说明书，你可以知道每个工具的使用方法。能让你知道函数的使用方法。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">dir(torch)</span><br><span class="line">help(torch.cuda.is_available)</span><br></pre></td></tr></table></figure>
+<li><p><u>学习率</u>最初设置为 $10^{-2}$ ，然后在验证集精度停止增长时再降低10倍。 总的来说，学习率（learning rate）一共降低了3次，并且在370K个迭代（74代）后停止了学习。 </p>
 </li>
+<li><p>我们推测，尽管与（Krizhevsky et al.，2012）相比，网络的参数数量更多，网络深度也更大，但能用更少的迭代次数来实现收敛，由于：（a）更大深度和更小卷积核所带来的隐式正则化；（b）某些图层的预初始化。</p>
+</li>
+</ul>
+<p><strong>网络权重的初始化</strong>很重要，因为由于深度网络中的梯度不稳定，初始化不好可能会导致学习停滞。 </p>
+<ol>
+<li>为了避免这个问题，我们从训练配置A（表1）开始，这个网络足够浅，可以随机初始化进行训练。 </li>
+<li>然后，当训练更深的体系结构时，我们使用了网络A的权值来初始化了前四个卷积层和最后三个完全连接的层，（中间层随机初始化）。</li>
+<li>我们没有降低预初始化图层的学习速率，允许它们在学习期间改变。 对于随机初始化（如有），我们从具有零均值和 <img src="https://www.zhihu.com/equation?tex=10%5E%7B%E2%88%922%7D" alt="[公式]"> 方差的正态分布采样权重。 偏差初始化为零。 </li>
 </ol>
-<h2><span id="shu-ju">数据</span><a href="#shu-ju" class="header-anchor">#</a></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">img_path = <span class="string">""</span> <span class="comment"># 注意，win下\\</span></span><br><span class="line">img = Image.open(ima_path)</span><br><span class="line">img.show()</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">dir_path = <span class="string">""</span> <span class="comment"># /</span></span><br><span class="line">img_path_list = os.listdir(dir_path) <span class="comment"># 文件夹下的变成列表</span></span><br><span class="line"></span><br><span class="line">root_dir = <span class="string">"dataset/train"</span></span><br><span class="line">label_dir = <span class="string">"ants"</span></span><br><span class="line">path = os.path.join(root_dir,label_dir) <span class="comment"># 系统自动加起来，不会出错</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root_dir, label_dir)</span>:</span></span><br><span class="line">		self.root_dir = root_dir</span><br><span class="line">		self.label_dir = label_dir</span><br><span class="line">		self.path = os.path.join(self.root_dir,self.label_dir)</span><br><span class="line">		self.img_path = os.listdir(self.path) <span class="comment"># 所有图片的名称</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self,idx)</span>:</span></span><br><span class="line">		img_name = self.img_path[idx] <span class="comment"># 图片名</span></span><br><span class="line">		img_item_path = os.path.join(self.root_dir,self.label_dir, img_name) <span class="comment"># 图片相对路径地址</span></span><br><span class="line">		img = Image.open(img_item_path) <span class="comment"># 读取图片</span></span><br><span class="line">		label = self.label_dir <span class="comment"># 这里label就是文件名</span></span><br><span class="line">		<span class="keyword">return</span> img, label</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> len(self.img_path) <span class="comment"># 数据集的长度</span></span><br><span class="line"></span><br><span class="line">root_dir = <span class="string">"dataset/train"</span></span><br><span class="line">ants_label_dir = <span class="string">"ants"</span></span><br><span class="line">bees_label_dir = <span class="string">"bees"</span></span><br><span class="line">ants_dataset = MyData(root_dir, ants_label_dir)</span><br><span class="line">bees_dataset = MyData(root_dir, bees_label_dir)</span><br><span class="line"></span><br><span class="line">img, label = ants_dataset[<span class="number">0</span>] <span class="comment"># 就自动调用了__getitem__获取了第一个</span></span><br><span class="line">img.show()</span><br><span class="line"></span><br><span class="line">train_dataset = ants_dataset + bees_dataset <span class="comment"># 合并数据集 数据增强</span></span><br></pre></td></tr></table></figure>
-<h2><span id="gou-jian-zi-ji-de-wang-luo">构建自己的网络</span><a href="#gou-jian-zi-ji-de-wang-luo" class="header-anchor">#</a></h2><ol>
-<li>处理数据</li>
-<li>定义网络</li>
-<li>定义损失函数</li>
-<li>定义优化方法</li>
-<li>训练</li>
+<p><strong>图像缩放</strong>：</p>
+<p>为了获得224×224固定大小的 ConvNet输入图像，他们从重新缩放的训练图像中随机裁剪（每个SGD迭代每个图像裁剪一次）。 为了进一步增强训练集，被裁剪的图像经过随机水平翻转和随机RGB颜色偏移处理（Krizhevsky et al.，2012）。 下面将介绍训练图像缩放。</p>
+<p><strong>训练图像尺寸。</strong> 设S是等比例缩放的训练图像的最小边，ConvNet基于这些图像的裁剪作为输入（我们也称S为训练尺度）。 裁剪大小固定为224×224，但原则上S可以取不小于224的任何值：对于S = 224，裁剪图将捕获整幅图像统计数据，完全跨越训练图像的最小边; 对于S&gt;&gt;224，裁剪图将对应于图像的一小部分，包含一个小物体或一个物体部分。</p>
+<p><strong>考虑设定训练尺度S的两种方法</strong>。</p>
+<ol>
+<li>第一种方法是<strong>固定S</strong>，对应于单尺度训练（single-scale training）。 在实验中，评估了以两个固定尺度训练的模型：S = 256和S = 384。给定一个ConvNet配置，我们首先使用S = 256来训练网络。为了<strong>加速</strong>S = 384网络的训练，<u>它被初始化为具有S = 256的预训练权重，并且我们使用较小的学习率初始值为 $10^{-3}$</u> 。</li>
+<li><strong>设定S的第二种方法是多尺度训练 (multi-scale training)</strong>，其中通过从特定范围[Smin，Smax]（我们使用Smin = 256和Smax = 512）随机采样S来单独重新调整每个训练图像。 由于图像中的物体可能具有不同的大小，因此在训练时考虑到这一点是有益的。 这可以看作是通过缩放抖动(scale jittering)来<strong>增强训练集( training set augmentation)</strong>，其中单个模型被训练以识别多种类别的物体。 出于<strong>速度</strong>的原因，<u>我们通过对具有相同配置的单尺度模型的所有层进行微调来训练多尺度模型，并使用固定的S = 384进行预训练</u>。</li>
 </ol>
-<p><strong>一个例子</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoLayerNet</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, D_in, H, D_out)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        在构造函数中，我们实例化了两个nn.Linear模块，并将它们作为成员变量。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        super(TwoLayerNet, self).__init__()</span><br><span class="line">        self.linear1 = torch.nn.Linear(D_in, H)</span><br><span class="line">        self.linear2 = torch.nn.Linear(H, D_out)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        在前向传播的函数中，我们接收一个输入的张量，也必须返回一个输出张量。</span></span><br><span class="line"><span class="string">        我们可以使用构造函数中定义的模块以及张量上的任意的（可微分的）操作。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        h_relu = self.linear1(x).clamp(min=<span class="number">0</span>)</span><br><span class="line">        y_pred = self.linear2(h_relu)</span><br><span class="line">        <span class="keyword">return</span> y_pred</span><br><span class="line"></span><br><span class="line"><span class="comment"># N是批大小； D_in 是输入维度；</span></span><br><span class="line"><span class="comment"># H 是隐藏层维度； D_out 是输出维度</span></span><br><span class="line">N, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生输入和输出的随机张量</span></span><br><span class="line">x = torch.randn(N, D_in)</span><br><span class="line">y = torch.randn(N, D_out)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过实例化上面定义的类来构建我们的模型。</span></span><br><span class="line">model = TwoLayerNet(D_in, H, D_out)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造损失函数和优化器。</span></span><br><span class="line"><span class="comment"># SGD构造函数中对model.parameters()的调用，</span></span><br><span class="line"><span class="comment"># 将包含模型的一部分，即两个nn.Linear模块的可学习参数。</span></span><br><span class="line">loss_fn = torch.nn.MSELoss(reduction=<span class="string">'sum'</span>)</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=<span class="number">1e-4</span>)</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">500</span>):</span><br><span class="line">    <span class="comment"># 前向传播：通过向模型传递x计算预测值y</span></span><br><span class="line">    y_pred = model(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#计算并输出loss</span></span><br><span class="line">    loss = loss_fn(y_pred, y)</span><br><span class="line">    <span class="comment"># print(t, loss.item())</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 清零梯度，反向传播，更新权重</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure></p>
-<p>一个可以效仿的测试函数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(model, device, test_loader)</span>:</span></span><br><span class="line">    model.eval()</span><br><span class="line">    test_loss = <span class="number">0</span></span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> i,data <span class="keyword">in</span> enumerate(test_loader):          </span><br><span class="line">            x,y= data</span><br><span class="line">            x=x.to(device)</span><br><span class="line">            y=y.to(device)</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            y_hat = model(x)</span><br><span class="line">            test_loss += criterion(y_hat, y).item() <span class="comment"># sum up batch loss</span></span><br><span class="line">            pred = y_hat.max(<span class="number">1</span>, keepdim=<span class="literal">True</span>)[<span class="number">1</span>] <span class="comment"># get the index of the max log-probability</span></span><br><span class="line">            correct += pred.eq(y.view_as(pred)).sum().item()</span><br><span class="line">    test_loss /= len(test_loader.dataset)</span><br><span class="line">    print(<span class="string">'\nTest set: Average loss: &#123;:.4f&#125;, Accuracy: &#123;&#125;/&#123;&#125; (&#123;:.0f&#125;%)\n'</span>.format(</span><br><span class="line">        test_loss, correct, len(val_dataset),</span><br><span class="line">        <span class="number">100.</span> * correct / len(val_dataset)))</span><br></pre></td></tr></table></figure>
+<h3><span id="3-2-testing">3.2 Testing</span><a href="#3-2-testing" class="header-anchor">#</a></h3><p>测试时，给定一个训练有素的ConvNet和一个输入图像，它按以下方式分类。</p>
+<ol>
+<li>将其等比例缩放到预定义的最小边，表示为Q（我们也将其称为测试尺度）</li>
+<li>然后，网络以类似于（Sermanet等人，2014）的方式被密集地应用在重新缩放的测试图像上。也就是说，全连接的层首先被转换成卷积层（第一个FC层转为7×7的卷积层，后两个FC层转为1×1 卷积层）。然后将所得的全卷积网络应用于整个（未裁剪的）图像。</li>
+<li>其结果是一个类别得分映射，其类别数等于任务的目标分类数，以及一个可变的空间分辨率，取决于输入图像的大小。</li>
+<li>最后，为了获得固定大小的图像类别分数的向量，类别得分映射会被空间平均（sum-pooled）。</li>
+<li>我们还通过水平翻转(horizontal flipping)图像来增强测试集；对原始图像和翻转图像的softmax分类概率进行平均以获得图像的最终分数。</li>
+</ol>
+<p>使用大量的裁剪图像，可以提高准确性，因为与全卷积网络相比，它可以更精细地对输入图像进行采样。此外，由于卷积边界条件不同，<strong>多裁剪图像评估</strong>与<strong>密集评估</strong>是互补的：</p>
+<ul>
+<li>将ConvNet应用于裁剪图像时，卷积后的特征映射用零填充</li>
+<li>而在密集评估的情况下，同一裁切图像的填充天然地来自于图像的相邻部分（由于卷积和空间池化），这大大增加了整个网络的感受野，因此捕获更多的上下文信息。</li>
+<li>尽管我们认为在实践中增加多裁切图像(multiple crops )的计算时间并不能证明潜在的准确度增加，但我们对于每种尺寸规模（5×5个常规栅格和2种翻转）都使用50个裁切图像来评估我们的网络，总共150个裁切图像(crops)、超过3个尺度(scales)，这与Szegedy等人使用的4种尺度、144个裁切图像相当 （2014）。</li>
+</ul>
+<h2><span id="4-classification-shi-yan">4. classification 实验</span><a href="#4-classification-shi-yan" class="header-anchor">#</a></h2><h3><span id="4-1-tu-xiang-dan-chi-du-ping-gu">4.1 （图像）单尺度评估</span><a href="#4-1-tu-xiang-dan-chi-du-ping-gu" class="header-anchor">#</a></h3><ul>
+<li>首先，我们注意到在没有任何标准化层的情况下，<u>使用局部响应标准化（A-LRN网络）在模型A上没有改进</u>。 因此，我们在深层架构（B-E）中不采用标准化层。</li>
+<li>其次，我们观察到<u>分类错误随着ConvNet深度的增加而减少</u>：从模型A的11层到模型E的19层。</li>
+<li>值得注意的是，尽管深度相同，配置C（其包含三个1×1的转换层），比整个网络全部使用3×3 卷积的配置D更差。这表明<u>虽然额外的非线性确实有帮助（C比B好），但使用感受野范围不少的卷积核（D比C好）捕获空间上下文也很重要</u>。</li>
+<li>当深度达到19层时，<u>我们架构的错误率会饱和</u>，但即使是更深的模型也可能对更大的数据集有所帮助。</li>
+<li>我们还特意以B网络为基准，把每两层3x3卷积替换为一层5×5 卷积核的浅网进行比较（其具有与B网络相同的感受野，见2.3节中解释）。该浅层网络的Top-1误差比B网络（用中心裁切图像）的误差高7％，这证实了<u>带有小型卷积核的深网优于具有更大卷积核的浅网</u>。</li>
+<li>最后，即使在测试时使用单尺度图像，训练时的图像缩放（S∈[256; 512]）比起图像固定最小边（S = 256或S = 384）得到明显更好的结果。 这证实了<u>通过尺度抖动来增强训练集确实有助于捕获多尺度图像统计信息</u>。</li>
+</ul>
+<p><img src="/2020/06/16/vgg/2.png" style="zoom:67%;"></p>
+<h3><span id="4-2-duo-chi-du-ping-gu-multi-scale">4.2 多尺度评估 multi-scale</span><a href="#4-2-duo-chi-du-ping-gu-multi-scale" class="header-anchor">#</a></h3><p>在评估了ConvNet模型的单一尺度后，我们现在<u>评估测试时尺度抖动的影响</u>。</p>
+<p>包括在一个测试图像的多个缩放版本上运行模型（对应于不同的Q值），然后对结果分类的后验概率进行平均。</p>
+<p> 考虑到训练和测试所用尺度的巨大差异会导致性能下降</p>
+<ul>
+<li>用固定S训练的模型在三个图像尺寸上进行测试评估，测试尺寸接近训练尺寸：Q = {S - 32，S，S + 32}。 </li>
+<li>同时，训练时的尺度抖动可使网络在测试时使用更广泛的尺度范围，所以模型用变量 S∈[Smin, Smax] ，在更大范围的尺寸Q = {Smin，0.5(Smin + Smax)，Smax}下评估。</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>表4中所示的结果表明，<strong>在测试时的尺度抖动可得到更好的性能</strong>（与在单尺度上评估相同模型相比，如表3所示）。</li>
+<li>与以前一样，最深的配置（D和E）表现最好，而使用缩放抖动的训练模型优于使用固定最小边S的训练模型。</li>
+</ul>
+<p><img src="/2020/06/16/vgg/4.png" style="zoom:67%;"></p>
+<h3><span id="4-3-duo-cai-qie-tu-xiang-ping-gu-muti-crop">4.3 多裁切图像评估 muti-crop</span><a href="#4-3-duo-cai-qie-tu-xiang-ping-gu-muti-crop" class="header-anchor">#</a></h3><p>在表5中，我们将密集的（dense）ConvNet评估与多裁切图像（mult-crop ）评估进行比较（详情请参见3.2节）。 我们还通过softmax输出均值来评估两种评估技术的互补性。 可以看出，<u>使用多裁切图像的表现略好于密集评估，而且这两种方法确实是互补的，因为它们的组合优于其中的每一种</u>。 如上所述，我们假设这是由于对卷积边界条件的不同处理。</p>
+<p><img src="/2020/06/16/vgg/5.png" alt></p>
+<h3><span id="4-4-juan-ji-wang-luo-rong-he-convnet-fusion">4.4 卷积网络融合 Convnet Fusion</span><a href="#4-4-juan-ji-wang-luo-rong-he-convnet-fusion" class="header-anchor">#</a></h3><p>到目前为止，我们评估了单个ConvNet模型的性能。 在这部分实验中，我们<strong>通过模型的softmax分类后验概率均值来合并几个模型的输出</strong>。 由于模型的互补性，这提高了性能，这种方法在2012年和2013年的最优ILSVRC提交中使用过。</p>
+<p>结果如表6所示。到ILSVRC提交时，我们只训练单尺度网络以及多尺度模型D（通过仅对完全连接层而不是所有层进行微调）。 </p>
+<ul>
+<li>由此产生的7个网络的融合模型具有7.3％的ILSVRC测试错误率。</li>
+<li>提交之后，我们考虑了只有两个表现最好的多尺度模型（配置D和E）的集合，它使用密集评估将测试错误率降低到7.0％</li>
+<li>而使用组合密集和多裁切图像评估将测试错误率则降低到6.8％。 作为参考，我们表现最佳的单模型实现了7.1％的误差（模型E，表5）。</li>
+</ul>
+<p><img src="/2020/06/16/vgg/6.png" alt></p>
+<h2><span id="5-jie-lun">5. 结论</span><a href="#5-jie-lun" class="header-anchor">#</a></h2><p>在这项工作中，评估了用于大规模图像分类的深层卷积网络（多达19个权值层）。 已经证明，表示层的深度有利于分类准确性，并且通过大幅增加网络深度便可以使用传统的ConvNet架构来实现ImageNet挑战数据集上的最新性能（LeCun等，1989; Krizhevsky等， 2012）。 在附录中，我们还展示了我们的模型能很好地泛化应用于其他的任务和数据集，不亚于甚至性能优于那些深度略浅、更复杂的识别流水线。 我们的结果再一次证实了视觉表示中深度的重要性。</p>
 
       
 
@@ -222,7 +331,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
         		</li>
       		
 		</ul>
@@ -241,18 +350,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/21/pytorch_help/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/06/17/ResNet/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          pytorch help
+          Deep Residual Learning for Image Recognition
         
       </div>
     </a>
   
   
-    <a href="/2020/04/20/cloud-compute/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">A View of Cloud Computing</div>
+    <a href="/2020/06/01/DCCN/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Densely Connected Convolutional Networks</div>
       <i class="icon-circle-right"></i>
     </a>
   
