@@ -189,11 +189,6 @@
 </li>
 </ul>
 <!-- tocstop -->
-</div>
-
-<p>[TOC]</p>
-<p><strong>动机：</strong>深度网络很好的将一个端到端的多层模型中的低/中/高级特征以及分类器整合起来，特征的等级可以通过所堆叠层的数量（深度）来丰富。许多其它的视觉识别任务的都得益于非常深的模型。但是，越深的神经网络训练起来越困难。梯度消失/梯度爆炸问题（vanishing/exploding gradients），开始阻碍了模型的收敛。</p>
-<p><strong>之前的解决办法</strong>：归一初始化（normalized initialization）和中间归一化（intermediate normalization）在很大程度上解决了这一问题，它使得数十层的网络在反向传播的随机梯度下降（SGD）上能够收敛。</p>
 <p><strong>新的问题</strong>：当深层网络能够收敛时，<strong>退化</strong>问题（degradation problem）又出现了，即随着网络深度的增加，准确率达到饱和（不足为奇）然后迅速退化。意外的是，这种退化<strong>并不是由过拟合造成的</strong>（过拟合是训练集上好，测试集上不好，这里是训练集上也不好）。如图1所示。</p>
 <p><img src="/2020/06/17/ResNet/1.png" style="zoom:67%;"></p>
 <blockquote>
