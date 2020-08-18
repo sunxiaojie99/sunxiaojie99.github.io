@@ -162,7 +162,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="deep-residual-learning-for-image-recognition">Deep Residual Learning for Image Recognition</span><a href="#deep-residual-learning-for-image-recognition" class="header-anchor">#</a></h1><div class="toc">
+        <h1 id="Deep-Residual-Learning-for-Image-Recognition"><a href="#Deep-Residual-Learning-for-Image-Recognition" class="headerlink" title="Deep Residual Learning for Image Recognition"></a>Deep Residual Learning for Image Recognition</h1><div class="tocStart"></div>
 
 <!-- toc -->
 <ul>
@@ -189,152 +189,9 @@
 </li>
 </ul>
 <!-- tocstop -->
-<p><strong>新的问题</strong>：当深层网络能够收敛时，<strong>退化</strong>问题（degradation problem）又出现了，即随着网络深度的增加，准确率达到饱和（不足为奇）然后迅速退化。意外的是，这种退化<strong>并不是由过拟合造成的</strong>（过拟合是训练集上好，测试集上不好，这里是训练集上也不好）。如图1所示。</p>
-<p><img src="/2020/06/17/ResNet/1.png" style="zoom:67%;"></p>
-<blockquote>
-<p>Fig.1 20层和56层的“plain”网络在CIFAR-10上的训练错误率（左）和测试错误率（右）。越深的网络在训练和测试上都具有越高的错误率。</p>
-</blockquote>
-<p><strong>提出</strong>：a residual learning framework （一个残差学习框架），能够简化使那些非常深的网络的训练，该框架使得层能<strong>根据其输入</strong>来学习残差函数（ residual functions）而非原始函数（unreferenced functions）。</p>
-<h2><span id="1-introduction-fang-fa-gai-shu">1. Introduction（方法概述）</span><a href="#1-introduction-fang-fa-gai-shu" class="header-anchor">#</a></h2><p>训练准确率<strong>退化</strong>（degradation (of training accuracy)）的出现表明了并非所有的系统都是很容易优化的。</p>
-<p><strong>讨论1</strong>：比较一个浅层的框架和它的深层版本。对于更深的模型，这有一种通过构建的解决方案：<strong>恒等映射</strong>（identity mapping）来构建增加的层，而其它层直接从浅层模型中复制而来。这个构建的解决方案表明了，一个更深的模型不应当产生比它的浅层版本更高的训练错误率。实验表明，我们目前无法找到一个与这种构建的解决方案相当或者更好的方案（或者说无法在可行的时间内实现）。</p>
-<h3><span id="1-1-ti-chu">1.1 提出</span><a href="#1-1-ti-chu" class="header-anchor">#</a></h3><p><strong>提出</strong>：一种<strong>深度残差学习</strong>框架（ a deep residual learning framework）来解决这个退化问题</p>
-<ul>
-<li>明确的让这些层来拟合<strong>残差映射</strong>（residual mapping），而不是让每一个堆叠的层直接来拟合所需的底层映射（desired underlying mapping）</li>
-<li>假设所需的底层映射为 $H(x)$，我们<strong>让堆叠的非线性层来拟合另一个映射</strong>： $F(x)=H(x)−x$。 因此原来的映射转化为： $F(x)+x$。我们推断残差映射比原始映射（unreferenced mapping）更容易优化。</li>
-<li>公式 $F(x)+x$ 可以通过前馈神经网络的 “<strong>shortcut连接</strong>” 来实现(Fig.2)。（<u>shortcut 连接</u>：就是跳过一个或者多个层。）在我们的例子中，<strong>shortcut 连接只是简单的执行恒等映射，再将它们的输出和堆叠层的输出叠加在一起</strong>(Fig.2)。<strong>恒等的 shortcut 连接并不增加额外的参数和计算复杂度</strong>。完整的网络仍然能通过端到端的SGD反向传播进行训练，并且能够简单的通过公共库来实现。</li>
-</ul>
-<p><img src="/2020/06/17/ResNet/2.png" style="zoom:67%;"></p>
-<blockquote>
-<p>Fig.2 残差学习：一个构建块。</p>
-</blockquote>
-<h3><span id="1-2-xiao-guo">1.2 效果</span><a href="#1-2-xiao-guo" class="header-anchor">#</a></h3><p>在ImageNet数据集上进行了综合性的实验来展示这个退化问题并评估了提出的方法。</p>
-<ul>
-<li>1) 我们极深的残差网络是很容易优化的，但是对应的“plain”网络（仅进行层的堆叠的网络）在深度增加时却出现了更高的错误率。</li>
-<li>2) 我们的 deep residual 网络能够轻易的增加层数来提高准确率，并且结果也大大优于以前的网络。</li>
-<li>3) 有非常好的泛化性能，CIFAR-10数据集上也出现了类似的现象，这表明了我们提出的方法的优化难度和效果并不仅仅是对于一个特定数据集而言的。</li>
-</ul>
-<h2><span id="2-xiang-guan-gong-zuo-he-ta-ren-de-dui-bi">2. 相关工作（和他人的对比）</span><a href="#2-xiang-guan-gong-zuo-he-ta-ren-de-dui-bi" class="header-anchor">#</a></h2><h3><span id="2-1-can-chai-biao-shi">2.1 残差表示</span><a href="#2-1-can-chai-biao-shi" class="header-anchor">#</a></h3><ul>
-<li>对于向量量化，<strong>残差向量编码</strong>比原始向量编码更加有效。</li>
-<li>……</li>
-</ul>
-<h3><span id="2-2-shortcut-lian-jie">2.2 Shortcut连接</span><a href="#2-2-shortcut-lian-jie" class="header-anchor">#</a></h3><p>shortcut 连接已经经过了很长的一段实践和理论研究过程。</p>
-<ul>
-<li>训练多层感知器（MLPs）的一个早期实践就是添加一个连接输入和输出的线性层。</li>
-<li>在<a href="https://arxiv.org/abs/1409.4842" target="_blank" rel="noopener">Szegedy2015Going</a> 及 <a href="https://arxiv.org/abs/1409.5185" target="_blank" rel="noopener">Lee2015deeply</a>中，将一些中间层直接与辅助分类器相连接可以解决梯度消失/爆炸问题。</li>
-<li>在 <a href="https://arxiv.org/abs/1409.4842" target="_blank" rel="noopener">Szegedy2015Going</a> 中，一个“<strong>inception</strong>”层由一个 shortcut 分支和一些更深的分支组合而成。</li>
-<li>与此同时，“<strong>highway networks</strong>”将 <strong>shortcut连接</strong> 与门控函数（gating functions）结合起来。这些门（gates）是数据相关并且是有额外参数的，而我们的恒等 shortcuts是<strong>无参数</strong>的。当一个门的 shortcut 是“closed”（接近于0）时，highway网络中的层表示非残差函数。相反的，我们的模型总是学习残差函数；我们的恒等 shortcuts 从不关闭，在学习额外的残差函数时，所有的信息总是通过的。此外，highway网络并不能由增加层的深度（例如， 超过100层）来提高准确率。</li>
-</ul>
-<h2><span id="3-deep-residual-learning">3. Deep Residual Learning</span><a href="#3-deep-residual-learning" class="header-anchor">#</a></h2><h3><span id="3-1-deep-residual-learning">3.1 Deep Residual Learning</span><a href="#3-1-deep-residual-learning" class="header-anchor">#</a></h3><ol>
-<li>我们将 $H(x)$ 看作一个由部分堆叠的层（并不一定是全部的网络）来拟合的底层映射（underlying mapping），其中 $x$ 是这些层的输入。</li>
-<li>假设多个非线性层能够逼近复杂的函数，这就等价于这些层能够逼近复杂的残差函数，例如，$H(x)−x$（假设输入和输出的维度相同）。</li>
-<li>所以我们明确的让这些层来估计一个残差函数：$F(x)=H(x)−x$ 而不是 $H(x)$ 。因此原始函数变成了：$F(x)+x$ 。尽管这两个形式应该都能够逼近所需的函数（正如假设），但是学习的难易程度并不相同。</li>
-</ol>
-<p>这个重新表达的动机是由退化问题这个反常的现象(Fig.1，左)。正如我们在introduction中讨论的，如果增加的层能以恒等映射来构建，一个更深模型的训练错误率不应该比它对应的浅层模型的更大。<strong>退化问题表明了，求解器在通过多个非线性层来估计恒等映射上可能是存在困难的</strong>。而伴随着残差学习的重新表达，如果恒等映射是最优的，那么求解器驱使多个非线性层的权重趋向于零来逼近恒等映射。</p>
-<h3><span id="3-2-identity-mapping-by-shortcuts">3.2 Identity Mapping by Shortcuts</span><a href="#3-2-identity-mapping-by-shortcuts" class="header-anchor">#</a></h3><p>我们在堆叠层上采样残差学习算法。一个构建块如 Fig.2 所示。本文中的构建块定义如下（Eq.1）：</p>
-<p><img src="/2020/06/17/ResNet/2.png" style="zoom:67%;"></p>
-<script type="math/tex; mode=display">
-y = F(x, \{W_i\})+x</script><blockquote>
-<ul>
-<li>其中 $x$ 和 $y$ 分别表示层的输入和输出。</li>
-<li>函数 $F(x, \{W_i\})$ 代表学到的残差映射（residual mapping ）。Fig.2 中的例子包含两层，$F = W_2 σ(W_1 x)$ ，其中$σ$ 代表 ReLU，为了简化省略了偏置项。</li>
-<li>$F+x$ 操作由一个shortcut 连接和元素级（element-wise）加法来表示。</li>
-<li>在加法之后，再执行一个非线性操作（例如，$σ(y)$，如Fig.2） </li>
-</ul>
-</blockquote>
-<ol>
-<li><p>Eq.1中的 <strong>shortcut连接没有增加额外的参数和计算复杂度</strong>。这不仅是一个很有吸引力的做法，同时在对”plain”网络和残差网络进行比较时也是非常重要的。可以在参数、深度、宽度以及计算成本都相同的基础上对两个网络进行公平的比较（除了可以忽略不计的元素级的加法）。</p>
-</li>
-<li><p>在Eq.1中<strong>，$x$ 和 $F$ 的维度必须相同</strong>。如果不相同（例如, 当改变了输入/输出的通道），我们可以通过shortcut<strong>连接执行一个线性映射 $W_s$ 来匹配两者的维度</strong>（Eq.2）（将 $x$ 变换为和 $F$ 相同维度）：</p>
-<script type="math/tex; mode=display">
-y=F(x,\{W_i\})+W_sx</script></li>
-<li><p>在Eq.1中同样可以使用方阵 $W_s$。但我们的实验表明，恒等映射（identity mapping）已足够解决退化问题（degradation problem ），并且是经济的，因此 <strong>$W_s$ 只是用来解决维度不匹配的问题</strong>。</p>
-</li>
-<li><p><strong>残差函数 $F$ 的形式是灵活可变的。</strong>本文实验中涉及到的函数 $F$ 是两层或者三层的（可以好几层）（Fig.5），当然更多层也是可行的。但是如果 $F$ 只含有一层，Eq.1就和线性函数：$y=W_1x+x$ 一致，因此并不具有任何优势。</p>
-</li>
-</ol>
-<p><img src="/2020/06/17/ResNet/3.png" style="zoom:80%;"></p>
-<h3><span id="3-3-network-architectures"><strong>3.3 Network Architectures</strong></span><a href="#3-3-network-architectures" class="header-anchor">#</a></h3><p>我们在多个 plain 网络和残差网络上进行了测试，并都观测到了一致的现象。接下来将在ImageNet上对两个模型进行讨论。</p>
-<p><img src="/2020/06/17/ResNet/4.png" alt></p>
-<blockquote>
-<p>Fig.3 对应于ImageNet的网络框架举例。 <strong>左</strong>：VGG-19模型 （196亿个FLOPs）作为参考。<strong>中</strong>：plain网络，含有34个参数层（36 亿个FLOPs）。<strong>右</strong>：残差网络，含有34个参数层（36亿个FLOPs）。虚线表示的shortcuts增加了维度。<strong>Table 1</strong>展示了更多细节和其它变体。</p>
-</blockquote>
-<p><strong>Plain网络</strong></p>
-<p>我们的plain网络结构（Fig.3，中）主要受 VGG网络（Fig.3，左）的启发。<br>卷积层主要为3*3的滤波器，并遵循以下两点要求：</p>
-<ul>
-<li>(i) 输出特征尺寸相同的层含有相同数量的滤波器；</li>
-<li>(ii) 如果特征尺寸减半，则滤波器的数量增加一倍来保证每层的时间复杂度相同。我们直接通过stride 为2的卷积层来进行下采样。在网络的最后是一个全局的 average pooling 层和一个1000 类的包含softmax 的全连接层。加权层的层数为34，如Fig.3(中)所示。</li>
-</ul>
-<p>值得注意的是，我们的模型比VGG网络（Fig.3，左）有更少的滤波器和更低的计算复杂度。我们34层的结构含有36亿个FLOPs（乘-加），而这仅仅只有VGG-19 （196亿个FLOPs）的<strong>18%。</strong></p>
-<p><strong>残差网络 Residual Network</strong></p>
-<p>在以上plain网络的基础上，我们插入shortcut连接(Fig.3，右)，将网络变成了对应的残差版本。</p>
-<ul>
-<li><p>如果输入和输出的维度相同时，可以直接使用<strong>恒等shortcuts</strong> (Eq.1)（Fig.3中的实线部分）。</p>
-</li>
-<li><p>当维度增加时（Fig.3中的虚线部分），考虑两个选项，对于这两个选项，当shortcut跨越两种尺寸的特征图时，均使用stride为2的卷积。</p>
-<ul>
-<li>(A) shortcut仍然使用恒等映射，在增加的维度上使用 0 来填充，这样做不会增加额外的参数</li>
-<li>(B) 使用Eq.2的映射shortcut来使维度保持一致（通过1*1的卷积）。</li>
-</ul>
-</li>
-</ul>
-<p><img src="/2020/06/17/ResNet/5.png" alt></p>
-<p>Table 1 对应于ImageNet的结构框架。括号中为构建块的参数(同样见Fig.5)，数个构建块进行堆叠。下采样由stride为2的conv3_1、conv4_1和conv5_1 来实现。</p>
-<h3><span id="3-4-implementation"><strong>3.4 Implementation</strong></span><a href="#3-4-implementation" class="header-anchor">#</a></h3><ul>
-<li><p><strong>图像增强</strong>：针对ImageNet的网络，在[256,480]中对图像的短边进行随机采样（randomly sampled）来调整图像的大小，以进行比例放大（scale augmentation）。 从一张图像或者它的水平翻转（horizontal flip）图像中随机采样一个224*224的剪裁（crop），每个像素都减去均值。使用[21]中的标准颜色增强。</p>
-</li>
-<li><p><strong>标准化</strong>：我们在每一个卷积层之后，激活层之前均使用batch normalization（BN）【<a href="https://www.cnblogs.com/guoyaohua/p/8724433.html】。" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/8724433.html】。</a></p>
-</li>
-<li><p><strong>初始化</strong>：我们根据<a href="https://www.computer.org/csdl/proceedings/iccv/2015/8391/00/8391b026-abs.html" target="_blank" rel="noopener">He2014spatial</a>来初始化权值然后从零开始训练所有plain/残差网络。</p>
-</li>
-<li><p><strong>配置</strong>：使用的mini-batch的尺寸为256。学习率从0.1开始，每当错误率平稳时将学习率除以10，整个模型进行60∗10460∗104次迭代训练。我们将权值衰减设置为0.0001，a 动量为0.9。根据 <a href="https://arxiv.org/abs/1502.03167" target="_blank" rel="noopener">Ioffe2015Batch</a>，我们并没有使用Dropout。</p>
-</li>
-<li><p>在测试中，为了进行比较，我们采取标准的<strong>10-crop测试</strong>。</p>
-</li>
-</ul>
-<p>为了达到最佳的结果，我们使用<a href="https://arxiv.org/abs/1409.1556" target="_blank" rel="noopener">Simonyan2014Very</a>及<a href="https://www.computer.org/csdl/proceedings/iccv/2015/8391/00/8391b026-abs.html" target="_blank" rel="noopener">He2014spatial</a>中的全卷积形式，并在多个尺度的结果上取平均分（调整图像的大小使它的短边长度分别为{224,256,384,480,640}）。</p>
-<hr>
-<p><strong>【注：10-crop】</strong>1-crop和10-crop顾名思义就是进行1次和10次裁剪。举个例子输入图像是256*256的，网络训练所需图像是224×224的。1-corp是从256×256图像中间位置裁一个224 × 224的图像进行训练，而10-corp是先从中间裁一个224 × 224的图像，然后从图像左上角开始，横着数224个像素，竖着数224个像素开始裁剪，同样的方法在右上，左下，右下各裁剪一次。就得到了5张224 × 224的图像，镜像以后再做一遍，总共就有10张图片了。</p>
-<hr>
-<h2><span id="4-shi-yan-jie-guo">4. 实验结果</span><a href="#4-shi-yan-jie-guo" class="header-anchor">#</a></h2><hr>
-<p>【注：Top-1错误率和Top-5错误率】</p>
-<p>首先是TOP-5正确率，举个例子，比如你训练好了一个网络，你要用这个网络去进行图片分类任务，那我假设要分类的数目有50类，那么当我进行测试时，我输入一张图片，网络会依次输出这50个类别的概率，当所有图片测试完成后，那么：TOP-5正确率就是说，在测试图片的50个分类概率中，取前面5个最大的分类概率，正确的标签（分类）有没有在里面，就是它是不是这前5个中的一个，如果是，就是分类成功，那么他的TOP-5正确率此时等于：所有测试图片中正确标签在前五个分类概率的个数/所有的测试图片数</p>
-<p>那么，TOP-5错误率就是正确标记的样本数不在前五个概率里面的样本数除以总的样本数</p>
-<p>同理，TOP-1错误率就是正确标记的样本数不是最佳概率的样本数除以总的样本数</p>
-<hr>
-<h3><span id="4-1-imagenet-classification"><strong>4.1 ImageNet Classification</strong></span><a href="#4-1-imagenet-classification" class="header-anchor">#</a></h3><p>本文在1000类的ImageNet2012数据集上对我们的方法进行评估。训练集包含128万张图像，验证集包含5万张图像。我们在10万张测试图像上进行测试，并对<strong>top-1</strong>和<strong>top-5</strong> 的错误率进行评估。</p>
-<p><strong>对于Plain网络</strong>：评估了18层和34层的plain网络。34层的网络如图Fig.3(中)所示。18层的结构很相似，具体细节参见Table 1。</p>
-<ul>
-<li>34层的Plain网络比18层的Plain网络具有更高的验证错误率，为了揭示<strong>退化问题</strong>，根据Fig.4(左)我们可以看出，在整个训练过程中34 层的网络具有更高的训练错误率。</li>
-<li>认为这种优化上的困难不太可能是由梯度消失所造成的。因为这些plain网络的训练使用了BN，这能保证前向传递的信号是具有非零方差的。我们同样验证了在反向传递阶段的梯度由于BN而具有良好的范式，所以在前向和反向阶段的信号不会存在消失的问题。</li>
-<li>事实上34层的plain网络仍然具有不错的准确率(Table 3)，这表明了求解器在某种程度上也是有效的。</li>
-</ul>
-<p><strong>对于残差网络</strong>：对18层和34层的残差网络ResNets进行评估。如Fig.3 (右)所示，ResNets的基本框架和plain网络的基本相同，除了在每一对3*3的滤波器上添加了一个shortcut连接。从Table 2和Fig.4中观测到以下三点：</p>
-<ul>
-<li>与plain网络相反，34层的ResNet比18层ResNet的结果更优(<strong>2.8%</strong>)。这表明了这种设置可以很好的解决退化问题，并且我们可以由增加的深度来提高准确率。</li>
-<li>与对应的plain网络相比，34层的ResNet在top-1 错误率上降低了<strong>3.5%</strong> (Table 2)。这也验证了在极深的网络中残差学习的有效性。</li>
-<li>18层的plain网络和残差网络的准确率很接近 (Table 2)，但是ResNet 的收敛速度要快得多。(Fig.4 右 vs 左)。如果网络“<strong>并不是特别深</strong>” (如18层)，现有的SGD能够很好的对plain网络进行求解，而ResNet能够使优化得到更快的收敛。</li>
-</ul>
-<p><img src="/2020/06/17/ResNet/6.png" alt></p>
-<blockquote>
-<p> Fig.4 在<strong>ImageNet</strong>上进行训练。细曲线为训练错误率，粗曲线为使用中心crop时的验证错误率。左：18和34层的plain网络。右：18 和34层的ResNets。在这个图中，残差网络和对应的plain网络相比并没有增加额外的参数。</p>
-</blockquote>
-<p><img src="/2020/06/17/ResNet/7.png" style="zoom:67%;"></p>
-<blockquote>
-<p>Table 2 ImageNet验证集上的Top-1错误率 (%, 10-crop testing)。这里的ResNets并没有额外增加的参数。Fig.4展示了整个训练过程。</p>
-</blockquote>
-<p><img src="/2020/06/17/ResNet/8.png" style="zoom:67%;"></p>
-<blockquote>
-<p>Table 3 在ImageNet验证集上的错误率 (%, <strong>10-crop</strong> testing)。VGG-16是基于我们测试的网络。ResNet-50/101/152使用了选项B——利用映射来匹配增加的维度。</p>
-</blockquote>
-<p><img src="/2020/06/17/ResNet/9.png" style="zoom:67%;"></p>
-<blockquote>
-<p>Table 4 <strong>单一模型</strong>在ImageNet验证集上的错误率(%)(除了 ++ 是在验证集上的结果)。</p>
-</blockquote>
-<p><img src="/2020/06/17/ResNet/10.png" style="zoom:67%;"></p>
-<blockquote>
-<p>Table 5 <strong>组合模型</strong>在ImageNet测试集上的top-5错误率。</p>
-</blockquote>
-
+        
+          <a class="article-more-a" href="/2020/06/17/ResNet/#more">more >></a>
+        
       
 
       
